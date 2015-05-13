@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://js.cx/task/find-elements/table.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <form name="search">
+    <label>Поиск по сайту:
+      <input type="text" name="search">
+    </label>
+    <input type="submit" value="Искать!">
+  </form>
+
+  <hr>
+
+  <form name="search-person">
+    Поиск по посетителям:
+    <table id="age-table">
+      <tbody><tr>
+        <td>Возраст:</td>
+        <td id="age-list">
+          <label>
+            <input type="radio" name="age" value="young">до 18</label>
+          <label>
+            <input type="radio" name="age" value="mature">18-50</label>
+          <label>
+            <input type="radio" name="age" value="senior">более 50</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Дополнительно:</td>
+        <td>
+          <input type="text" name="info[0]">
+          <input type="text" name="info[1]">
+          <input type="text" name="info[2]">
+        </td>
+      </tr>
+
+    </tbody></table>
+
+    <input type="submit" value="Искать!">
+  </form>
+
+
+</body>
+<script type="text/javascript">
+  var tableElem, tagElems, firstCell, secondForm, searchForm, firstSearchInput, floatInfo, personInfo, searchFormPerson;
+
+  tableElem = document.getElementById("age-list"); tagElems = tableElem.getElementsByTagName('label');
+  console.log(tagElems);
+  firstCell = document.getElementsByTagName('td')[0];
+  console.log(firstCell);
+  secondForm = document.getElementsByTagName('form')[1];
+  console.log(secondForm);
+  searchForm = document.getElementsByName("search");
+  console.log(searchForm);
+  firstSearchInput = document.getElementsByTagName('input')[0];
+  console.log(firstSearchInput);
+  floatInfo = document.getElementsByName('info[0]');
+  console.log(floatInfo);
+  searchFormPerson = document.getElementsByName('search-person'); personInfo = searchFormPerson[0].getElementsByTagName('input')[3];
+  console.log(personInfo);
+</script>
+</html>
