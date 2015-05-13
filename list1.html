@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://js.cx/task/find-elements/table.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+
+<ul>
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</body>
+<script type="text/javascript">
+var liName, count;
+var liElems = document.getElementsByTagName('li');
+for (var i = 0; i < liElems.length; i++) {
+  count = liElems[i].getElementsByTagName('li');
+  console.log(liElems[i].innerText);
+  console.log(count);
+
+}
+
+</script>
+
+</html>
