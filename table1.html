@@ -58,9 +58,14 @@
   console.log(searchForm);
   firstSearchInput = document.getElementsByTagName('input')[0];
   console.log(firstSearchInput);
-  floatInfo = document.getElementsByName('info[0]');
+  // floatInfo = document.getElementsByName('info[0]');
+  floatInfo = document.querySelectorAll('table > tbody > input:nth-child(4)');
   console.log(floatInfo);
-  searchFormPerson = document.getElementsByName('search-person'); personInfo = searchFormPerson[0].getElementsByTagName('input')[3];
+  // personInfo = searchFormPerson[0].getElementsByTagName('input')[3];
+  searchFormPerson = document.getElementsByName('search-person'); 
+  personInfo = document.querySelectorAll('form#search-person > input:nth-child(4)')
   console.log(personInfo);
+
+  // 
 </script>
 </html>
