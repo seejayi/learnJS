@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://js.cx/task/find-elements/table.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+</head>
+
+<body>
+<style type="text/css">
+	.fade {
+		display: none;
+	}
+	p {display: block;}
+	.menu ul {
+	display: none;
+	}
+	.menu.open ul {
+  	display: block;
+	}
+	.title:hover {cursor: pointer;}
+	.remove-button {
+		float: right;
+	}
+
+</style>
+ <section>
+ 	<button id="hide" onclick="fd()">Click to hide</button>
+ 	<p id="text" class=" ">tttttttttt</p>
+ </section>
+ <section>
+ 	<button id="hide1" onclick="this.style.display='none'">Click to hide myself</button>
+ 	
+ </section> 
+ <section class="menu" id="menuItem">
+ 	<span class="title">Hide list</span>
+ 	<ul>
+    <li>Торт</li>
+    <li>Пончик</li>
+    <li>Пирожное</li>
+  	</ul>
+ </section>
+ <section>
+
+  <div>
+    <div class="pane">
+      <h3>Лошадь</h3><button class="remove-button">[x]</button>
+      <p>Домашняя лошадь — животное семейства непарнокопытных, одомашненный и единственный сохранившийся подвид дикой лошади, вымершей в дикой природе, за исключением небольшой популяции лошади Пржевальского.</p>
+    </div>
+    <div class="pane">
+      <h3>Осёл</h3><button class="remove-button">[x]</button>
+      <p>Домашний осёл или ишак — одомашненный подвид дикого осла, сыгравший важную историческую роль в развитии хозяйства и культуры человека. Все одомашненные ослы относятся к африканским ослам.</p>
+    </div>
+    <div class="pane">
+      <h3>Корова, а также пара слов о диком быке, о волах и о тёлках. </h3><button class="remove-button">[x]</button>
+      <p>Коро́ва — самка домашнего быка, одомашненного подвида дикого быка, парнокопытного жвачного животного семейства полорогих. Самцы вида называются быками, молодняк — телятами, кастрированные самцы — волами. Молодых (до первой стельности) самок называют
+        тёлками.
+      </p>
+    </div>
+  </div>
+
+ </section>
+
+<script type="text/javascript">
+		var button = document.getElementById("hide");
+		var el = document.getElementById("text");
+		function fd() {
+			el.setAttribute('class', 'fade');
+		};
+</script>
+<script type="text/javascript">
+		var menu = document.getElementById("menuItem");
+		var btn = menu.querySelector(".title");
+		menu.onclick = function() {
+			menu.classList.toggle('open');
+		};
+</script>
+<script type="text/javascript">
+	var textItem = document.getElementsByClassName('remove-button');
+	var elDiv = document.getElementsByClassName('pane');
+	for (var i = 0; i < textItem.length; i++) {
+		var but = textItem[i];
+		but.onclick = function () {
+			var el = this.parentNode;
+	        el.parentNode.removeChild(el);
+		
+		};
+	}
+		
+
+		
+</script>
+
+</body>
+</html>
