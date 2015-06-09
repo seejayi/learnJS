@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #field {
+      width: 200px;
+      height: 150px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #ball {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -20px;
+      margin-top: -20px;
+
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      -ms-transition: all 1s;
+      transition: all 1s; 
+    }
+  </style>
+</head>
+
+<body style="height:2000px">
+
+  Кликните на любое место поля, чтобы мяч перелетел туда.
+  <br> Мяч никогда не вылетит за границы поля.
+
+
+  <div id="field">
+    <img src="https://js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+<script type="text/javascript">
+(function() {
+  
+  var ball = document.getElementById("ball");
+  var field = document.getElementById("field");
+
+    var ballStyle = getComputedStyle(ball, "");
+
+    var startBallCoords = {
+
+    left: parseInt(ballStyle.left),
+    top: parseInt(ballStyle.top)
+
+    };
+
+    var fieldCoords = field.getBoundingClientRect();
+    var leftFieldCoord = fieldCoords.left + field.clientLeft;
+    var topFieldCoord = fieldCoords.top + field.clientTop;
+
+    field.onclick = function(event) {
+
+    var finishBallCoords = {};
+    event = event || window.event;
+
+    var ballLeft = event.clientX - leftFieldCoord;
+    var ballTop = event.clientY - topFieldCoord;
+
+    if(ballLeft + parseInt(ballStyle.marginLeft, 10) < 0) {
+
+      ballLeft = -parseInt(ballStyle.marginLeft, 10);
+
+    }
+
+    if(ballTop + parseInt(ballStyle.marginTop, 10) < 0) {
+
+      ballTop = -parseInt(ballStyle.marginTop, 10);
+
+    }
+
+    if(ballLeft + ball.offsetWidth + parseInt(ballStyle.marginLeft, 10) > field.clientWidth) {
+
+      ballLeft = field.clientWidth - ball.offsetWidth - parseInt(ballStyle.marginLeft, 10);
+
+    }
+
+    if(ballTop + ball.offsetHeight + parseInt(ballStyle.marginTop, 10) > field.clientHeight) {
+
+      ballTop = field.clientHeight - ball.offsetHeight - parseInt(ballStyle.marginTop, 10);
+
+    }
+
+    finishBallCoords.left = ballLeft;
+    finishBallCoords.top = ballTop;
+
+    ball.style.left = finishBallCoords.left + "px";
+    ball.style.top = finishBallCoords.top + "px";
+  }
+
+})();
+  
+</script>
+</body>
+
+</html>
