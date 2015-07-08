@@ -68,27 +68,19 @@
     var ballTop = event.clientY - topFieldCoord;
 
     if(ballLeft + parseInt(ballStyle.marginLeft, 10) < 0) {
-
       ballLeft = -parseInt(ballStyle.marginLeft, 10);
-
     }
 
     if(ballTop + parseInt(ballStyle.marginTop, 10) < 0) {
-
       ballTop = -parseInt(ballStyle.marginTop, 10);
-
     }
 
     if(ballLeft + ball.offsetWidth + parseInt(ballStyle.marginLeft, 10) > field.clientWidth) {
-
       ballLeft = field.clientWidth - ball.offsetWidth - parseInt(ballStyle.marginLeft, 10);
-
     }
 
     if(ballTop + ball.offsetHeight + parseInt(ballStyle.marginTop, 10) > field.clientHeight) {
-
       ballTop = field.clientHeight - ball.offsetHeight - parseInt(ballStyle.marginTop, 10);
-
     }
 
     finishBallCoords.left = ballLeft;

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>table via add/editing strings</title>
+  <style>
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 500px;
+      height: 250px;
+    }
+
+    td {
+      border: 1px solid black;
+      padding: 5px 5px;
+    }
+  </style>
+
+
+    <script>
+
+var d = document;
+
+var id = 0;
+var name;
+var mobNum;
+var adress;
+
+function addRow()
+{
+    id++;
+    // Считываем значения с формы
+    name = d.getElementById('name').value;
+    mobNum = d.getElementById('mobNum').value;
+    adress = d.getElementById('adress').value;
+
+    // Находим нужную таблицу
+    var tbody = d.getElementById('persons').getElementsByTagName('TBODY')[0];
+
+    // Создаем строку таблицы и добавляем ее
+    var row = d.createElement("TR");
+    tbody.appendChild(row);
+
+    // Создаем ячейки в вышесозданной строке
+    // и добавляем тх
+    var td1 = d.createElement("TD");
+    var td2 = d.createElement("TD");
+    var td3 = d.createElement("TD");
+    var td4 = d.createElement("TD");
+
+    row.appendChild(td1);
+    row.appendChild(td2);
+    row.appendChild(td3);
+    row.appendChild(td4);
+
+    // Наполняем ячейки
+    td1.innerHTML = id;
+    td2.innerHTML = name;
+    td3.innerHTML = mobNum;
+    td4.innerHTML = adress;
+}
+      
+  </script>
+
+</head>
+
+<body>
+
+<form action="" id="add_persons" method="post" onsubmit="addRow();return false;">
+<fieldset>
+<legend>Add new record</legend>
+    <ul>
+
+        <li>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="" size="12" tabindex="2" />
+        </li>
+        <li>
+            <label for="mobNum">Mobile</label>
+            <input type="text" name="mobNum" id="mobNum" value="" size="12" tabindex="3" />
+        </li>
+        <li>
+            <label for="adress">Adress</label>
+            <input type="text" name="adress" id="adress" value="" size="12" tabindex="3" />
+        </li>
+        <li>
+            <label for="subm">Add new record</label>
+            <input type="submit" name="subm" class="submit" value="Добавить" tabindex="4" />
+        </li>
+    </ul>
+</fieldset>
+  
+  <table id="persons">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Adress</th>
+        <th>Edit/delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0</td>
+        <td>Stiv Jake</td>
+        <td>380775556699</td>
+        <td>Pobeda st. 45</td>
+        <td>&nbsp;</td>
+      </tr>
+    </tbody>
+  </table>
+
+</form>
+
+
+</body>
+
+</html>
