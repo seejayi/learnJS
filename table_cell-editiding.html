@@ -49,33 +49,44 @@ var mobNum;
 var adress;
 var button, butText;
 
+
+
 function addRow()
 {
-    id++;
-    // Считываем значения с формы
+    var persons = new Array();
+
+  persons.push([1,'vasya', '1234134', 'tran', '<input type="button" value = "Delete" onClick="delRow(this);">']);
+  persons.push([2,'petya', '134134', 'ddd', '<input type="button" value = "Delete" onClick="delRow(this);">']);
+  persons.push([3,'Hren', '984744', 'tatata', '<input type="button" value = "Delete" onClick="delRow(this);">']);
+  
+    
     name = d.getElementById('name').value;
     mobNum = d.getElementById('mobNum').value;
     adress = d.getElementById('adress').value;
-    
-    // Находим нужную таблицу
+
     var tbody = d.getElementById('persons').getElementsByTagName('TBODY')[0];
-    var rowCount = tbody.rows.length;
-    var row = tbody.insertRow(rowCount);
-
-    row.insertCell(0).innerHTML = id;
-    row.insertCell(1).innerHTML = name;
-    row.insertCell(2).innerHTML = mobNum;
-    row.insertCell(3).innerHTML = adress;
-    row.insertCell(4).innerHTML = '<input type="button" value = "Delete" onClick="Javacsript:delRow(this)">';
-
-}
-function delRow(obj) {
-      
-    var index = obj.parentNode.parentNode.rowIndex;
-    var table =  d.getElementById('persons');
-    table.deleteRow(index);
+    var rowCount = persons[0].length;
     
+    
+    for (var i = 0; i < persons.length; i++) {
+       var row = tbody.insertRow(-1);
+        for (var j = 0; j < rowCount; j++) {
+            var cell = row.insertCell(-1);
+            cell.innerHTML = persons[i][j];
+        }
+    }
+
+
+    // var row = tbody.insertRow(rowCount);
+
+    // row.insertCell(0).innerHTML = id;
+    // row.insertCell(1).innerHTML = name;
+    // row.insertCell(2).innerHTML = mobNum;
+    // row.insertCell(3).innerHTML = adress;
+    // row.insertCell(4).innerHTML = '<input type="button" value = "Delete" onClick="delRow(this);">';
+
 }
+
 
 </script>
 
@@ -87,7 +98,6 @@ function delRow(obj) {
 <fieldset>
 <legend>Add new record</legend>
     <ul>
-
         <li>
             <label for="name">Name</label>
             <input type="text" name="name" id="name" value="" size="12" tabindex="2" />
@@ -131,7 +141,15 @@ function delRow(obj) {
 </form>
 
 <script type="text/javascript">
-var table =  document.getElementById('persons');
+
+function delRow(obj) {
+      
+    var index = obj.parentNode.parentNode.rowIndex;
+    var tl =  d.getElementById('persons');
+    tl.deleteRow(index);
+    
+}
+var table =  d.getElementById('persons');
 var editingTd;
 table.onclick = function(event) {
 
@@ -191,6 +209,7 @@ function finishTdEdit(td, isOk) {
   td.classList.remove('edit-td'); 
   editingTd = null;
 }
+
 
 </script>
 </body>
