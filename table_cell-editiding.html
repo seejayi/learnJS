@@ -68,18 +68,20 @@ var _tr_ = document.createElement('tr'),
       adress: 'ddddddd'
     }];
 var table = d.getElementById('persons');
+
 function redTable(persons) {
     var tbody = d.getElementById('persons').getElementsByTagName('TBODY')[0];
      columns = addAllCol(persons);
      for (var i=0, maxi=persons.length; i < maxi; ++i) {
          var tr = _tr_.cloneNode(false);
-         for (var j=0, maxj=columns.length; j < maxj ; ++j) {
+         for (var j=0, maxj=columns.length; j < maxj+1 ; ++j) {
              var td = _td_.cloneNode(false);
                  cellValue = persons[i][columns[j]];
              td.appendChild(document.createTextNode(persons[i][columns[j]] || ''));
              tr.appendChild(td);
          }
          table.appendChild(tr);
+         td.insertAdjacentHTML("afterBegin",'<input type="button" value = "Delete" onClick="delRow(this);">');                
      }
      return table;
 
