@@ -48,16 +48,62 @@ var name;
 var mobNum;
 var adress;
 var button, butText;
+var _tr_ = document.createElement('tr'),
+    _th_ = document.createElement('th'),
+    _td_ = document.createElement('td');
+  var persons = [{
+      id: 1,
+      name: 'vasya',
+      mobNum: '1234134',
+      adress: 'tratata'
+    }, {
+      id: 2,
+      name: 'petya',
+      mobNum: '1234231134',
+      adress: 'tratdsdcata'
+    }, {
+      id: 3,
+      name: 'her',
+      mobNum: '1896634',
+      adress: 'ddddddd'
+    }];
+var table = d.getElementById('persons');
+function redTable(persons) {
+    var tbody = d.getElementById('persons').getElementsByTagName('TBODY')[0];
+     columns = addAllCol(persons);
+     for (var i=0, maxi=persons.length; i < maxi; ++i) {
+         var tr = _tr_.cloneNode(false);
+         for (var j=0, maxj=columns.length; j < maxj ; ++j) {
+             var td = _td_.cloneNode(false);
+                 cellValue = persons[i][columns[j]];
+             td.appendChild(document.createTextNode(persons[i][columns[j]] || ''));
+             tr.appendChild(td);
+         }
+         table.appendChild(tr);
+     }
+     return table;
 
-
-
+}
+function addAllCol(persons) {
+  var colSet = [];
+  tr = _tr_.cloneNode(false);
+  for (var i=0, l=persons.length; i<l; i++){
+    for (var key in persons[i]){
+       if (persons[i].hasOwnProperty(key) && colSet.indexOf(key)===-1) {
+                 colSet.push(key);
+                 var th = _th_.cloneNode(false);
+                 th.appendChild(document.createTextNode(key));
+                 tr.appendChild(th);
+    }
+  }
+}
+table.appendChild(tr);
+return colSet;
+}
 function addRow()
 {
-    var persons = new Array();
+    
 
-  persons.push([1,'vasya', '1234134', 'tran', '<input type="button" value = "Delete" onClick="delRow(this);">']);
-  persons.push([2,'petya', '134134', 'ddd', '<input type="button" value = "Delete" onClick="delRow(this);">']);
-  persons.push([3,'Hren', '984744', 'tatata', '<input type="button" value = "Delete" onClick="delRow(this);">']);
   
     
     name = d.getElementById('name').value;
@@ -68,16 +114,9 @@ function addRow()
     var rowCount = persons[0].length;
     
     
-    for (var i = 0; i < persons.length; i++) {
-       var row = tbody.insertRow(-1);
-        for (var j = 0; j < rowCount; j++) {
-            var cell = row.insertCell(-1);
-            cell.innerHTML = persons[i][j];
-        }
-    }
+   
 
 
-    // var row = tbody.insertRow(rowCount);
 
     // row.insertCell(0).innerHTML = id;
     // row.insertCell(1).innerHTML = name;
@@ -92,7 +131,7 @@ function addRow()
 
 </head>
 
-<body>
+<body onload="redTable(persons)">
 
 <form action="" id="add_persons" method="post" onsubmit="addRow();return false;">
 <fieldset>
