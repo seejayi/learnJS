@@ -62,7 +62,7 @@ var _tr_ = document.createElement('tr'),
     }];
 var table = d.getElementById('persons');
 
-function redTable(persons) {
+function rendTable(persons) {
    
      columns = addAllCol(persons);
      for (var i=0, maxi=persons.length; i < maxi; ++i) {
@@ -106,7 +106,7 @@ function addRow() {
     persons[key] == id++;
     persons.push({id,name,mobNum,adress});
 
-    return redTable(persons);
+    return rendTable(persons);
 }
 function delRow(obj) {   
     var index = obj.parentNode.parentNode.rowIndex;
@@ -118,7 +118,7 @@ function delRow(obj) {
 
 </head>
 
-<body onload="redTable(persons);">
+<body onload="rendTable(persons);">
 
 <form action="" id="add_persons" method="post" onsubmit="addRow();return false;">
 <fieldset>
@@ -153,6 +153,7 @@ function delRow(obj) {
 
 var table =  d.getElementById('persons');
 var editingTd;
+
 table.onclick = function(event) {
   var target = event.target;
   while (target != table) {
