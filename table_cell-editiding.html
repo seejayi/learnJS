@@ -105,28 +105,23 @@ return colSet;
 function addRow()
 {
     
-
-  
-    
     name = d.getElementById('name').value;
     mobNum = d.getElementById('mobNum').value;
     adress = d.getElementById('adress').value;
+    // id++;
+    var key = 'id';
+    persons[key] == id++;
+    // persons[id]+=1;
+    // persons.name = name;
+    // persons.mobNum = mobNum;
+    // persons.adress = adress;
+    persons.push({id,name,mobNum,adress});
 
-    var tbody = d.getElementById('persons').getElementsByTagName('TBODY')[0];
-    var rowCount = persons[0].length;
-    
-    
-   
 
-
-
-    // row.insertCell(0).innerHTML = id;
-    // row.insertCell(1).innerHTML = name;
-    // row.insertCell(2).innerHTML = mobNum;
-    // row.insertCell(3).innerHTML = adress;
-    // row.insertCell(4).innerHTML = '<input type="button" value = "Delete" onClick="delRow(this);">';
+    redTable(persons);
 
 }
+
 
 
 </script>
@@ -187,6 +182,7 @@ function delRow(obj) {
       
     var index = obj.parentNode.parentNode.rowIndex;
     var tl =  d.getElementById('persons');
+    persons.splice(index, 1);
     tl.deleteRow(index);
     
 }
