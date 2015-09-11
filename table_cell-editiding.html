@@ -5,6 +5,9 @@
   <meta charset="utf-8">
   <title>table via add/editing strings</title>
   <style>
+    form {
+      padding-top: 150px;
+    }
     table {
       margin: 0 auto;
       border-collapse: collapse;
@@ -98,37 +101,52 @@ var _tr_ = document.createElement('tr'),
     }];
 var table = d.getElementById('persons');
 
-function makeEditable(){
- 
- var el = this;
- 
- if(el.firstChild.nodeName !="INPUT"){
-   var input = document.createElement("input");
-    input.value = el.firstChild.nodeValue;
-    input.setAttribute('autocomplete','off');
-    input.style.background = "rgb(255,244,255)";
-    el.replaceChild(input, el.firstChild);
-    el.firstChild.select();
-    el.firstChild.focus(); 
-   } else {   
-    var text= document.createTextNode(el.firstChild.value);
-    el.replaceChild(text, el.firstChild);
-   }
- 
-}
- function addEventHandlers() {
-  var table = document.getElementById('persons');
-  var tds = table.getElementsByTagName('td');
-  for(var i=0; i < tds.length; i++){ 
-      tds[i].onclick = makeEditable;
-      tds[i].title = 'Click to edit';        
-  }
 
-}
+
+
+
+//  function addEventHandlers() {
+//   var tds = table.getElementsByTagName('td');
+//   
+// }
+
 function cancelBubble(e) {
  var evt = e ? e:window.event;
- if (evt.stopPropagation)    evt.stopPropagation();
+ if (evt.stopPropagation) evt.stopPropagation();
  if (evt.cancelBubble!=null) evt.cancelBubble = true;
+}
+
+var table = document.getElementById('persons');
+function addConfrmBtns() {
+    var editBtn = document.getElementById("edit_btn");
+    var ok = document.createElement("input");
+    var cancel = document.createElement("input");
+    
+    var tdId = persons[id];
+    var rowCount = table.rows.length;
+  if (editBtn.onclick) {
+    for (var i = 1; i <= rowCount; i++) {  
+      var row = table.rows[i];  
+      var cells = row.getElementsByTagName('td');
+      for (var j = 1; j <= cells.length-1; j++) {
+        cells[j] = makeEditable();
+      }
+    } 
+
+
+    ok.value = 'ok';
+    cancel.value = 'cancel';
+    ok.onclick = function(index, id){
+
+    }
+    cancel.onclick = function(){
+
+    }
+
+  }
+
+
+
 }
 
 function addAllCol(persons) {
@@ -160,32 +178,60 @@ function rendTable(persons) {
          }
          table.appendChild(tr);
          td.insertAdjacentHTML("afterBegin",'<input id="delBtn" type="button" value = "Delete" onclick="cancelBubble(event);delRow(this);">');                
+         td.insertAdjacentHTML("afterBegin",'<input id="edit_btn" type="button" value = "Edit" onclick="cancelBubble(event);addConfrmBtns();">');                
      }
      return table;
 }
+
 var table =  d.getElementById('persons');
-function addRow() {   
+
+function clearTb() {
     var table = document.getElementById('persons');
     table.innerHTML = "";
+}
+
+function addRow() {
+    // clearTb();   
     name = d.getElementById('name').value;
     mobNum = d.getElementById('mobNum').value;
     adress = d.getElementById('adress').value;
-    // id++;
     var key = 'id';
-    persons[key] == id++;
+    persons[key] = id++;
     persons.push({"id":id,"name":name,"mobNum":mobNum,"adress":adress});
     rendTable(persons);
-    addEventHandlers();
+    // addEventHandlers();
+}
+
+function makeEditable(){
+ 
+ var el = this; 
+ if(el.firstChild.nodeName !="INPUT"){
+   var input = document.createElement("input");
+    input.value = el.firstChild.nodeValue;
+    input.setAttribute('autocomplete','off');
+    input.style.background = "rgb(255,244,255)";
+    el.replaceChild(input, el.firstChild);
+    el.firstChild.select();
+    el.firstChild.focus(); 
+   } 
+   // else {   
+   //  var text= document.createTextNode(el.firstChild.value);
+   //  el.replaceChild(text, el.firstChild);
+   // }
+ 
 }
 
 var table = document.getElementById('persons');
-  
+
 function delRow(obj) {
+    
     var tl =  d.getElementById('persons');   
     var index = obj.parentNode.parentNode.rowIndex;
 
     persons.splice(index, 1);
-    tl.deleteRow(index);  
+    tl.deleteRow(index);
+    clearTb();
+    rendTable(persons);  
 }
 
 </script>
