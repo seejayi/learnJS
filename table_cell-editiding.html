@@ -105,11 +105,6 @@ var table = d.getElementById('persons');
 
 
 
-//  function addEventHandlers() {
-//   var tds = table.getElementsByTagName('td');
-//   
-// }
-
 function cancelBubble(e) {
  var evt = e ? e:window.event;
  if (evt.stopPropagation) evt.stopPropagation();
@@ -117,35 +112,37 @@ function cancelBubble(e) {
 }
 
 var table = document.getElementById('persons');
-function addConfrmBtns() {
+function addConfrmBtns(obj) {
     var editBtn = document.getElementById("edit_btn");
     var ok = document.createElement("input");
     var cancel = document.createElement("input");
-    
+    var input = document.createElement("input");
     var tdId = persons[id];
-    var rowCount = table.rows.length;
-  if (editBtn.onclick) {
-    for (var i = 1; i <= rowCount; i++) {  
-      var row = table.rows[i];  
-      var cells = row.getElementsByTagName('td');
-      for (var j = 1; j <= cells.length-1; j++) {
-        cells[j] = makeEditable();
+
+    var getTR = obj.parentNode.parentNode;
+    var getLength = getTR.childElementCount;
+    var getTds = getTR.querySelectorAll("td")
+      for (i in getTds){
+          if(i < (getLength-1)){
+            getTds[i].innerHTML = "<input type='text' value='"+getTds[i].innerHTML+"'>";
+          }
+          else {
+            getTds[i].innerHTML = "<input type='button' value='ok' onclick='save();'>"+"<input type='button' value='cancel' onclick='cancel();'>";
+          }       
       }
-    } 
+  if (editBtn.onclick) {
+    
 
+    // ok.value = 'ok';
+    // cancel.value = 'cancel';
+    // ok.onclick = function(index, id){
 
-    ok.value = 'ok';
-    cancel.value = 'cancel';
-    ok.onclick = function(index, id){
+    // }
+    // cancel.onclick = function(){
 
-    }
-    cancel.onclick = function(){
-
-    }
+    // }
 
   }
-
-
 
 }
 
@@ -178,7 +175,7 @@ function rendTable(persons) {
          }
          table.appendChild(tr);
          td.insertAdjacentHTML("afterBegin",'<input id="delBtn" type="button" value = "Delete" onclick="cancelBubble(event);delRow(this);">');                
-         td.insertAdjacentHTML("afterBegin",'<input id="edit_btn" type="button" value = "Edit" onclick="cancelBubble(event);addConfrmBtns();">');                
+         td.insertAdjacentHTML("afterBegin",'<input id="edit_btn" type="button" value = "Edit" onclick="cancelBubble(event);addConfrmBtns(this);">');                
      }
      return table;
 }
@@ -199,7 +196,7 @@ function addRow() {
     persons[key] = id++;
     persons.push({"id":id,"name":name,"mobNum":mobNum,"adress":adress});
     rendTable(persons);
-    // addEventHandlers();
+
 }
 
 function makeEditable(){
