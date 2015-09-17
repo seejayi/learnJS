@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html>
 
@@ -101,53 +102,13 @@ var _tr_ = document.createElement('tr'),
     }];
 var table = d.getElementById('persons');
 
-
-
-
-
-//  function addEventHandlers() {
-//   var tds = table.getElementsByTagName('td');
-//   
-// }
-
 function cancelBubble(e) {
  var evt = e ? e:window.event;
  if (evt.stopPropagation) evt.stopPropagation();
  if (evt.cancelBubble!=null) evt.cancelBubble = true;
 }
 
-var table = document.getElementById('persons');
-function addConfrmBtns() {
-    var editBtn = document.getElementById("edit_btn");
-    var ok = document.createElement("input");
-    var cancel = document.createElement("input");
-    
-    var tdId = persons[id];
-    var rowCount = table.rows.length;
-  if (editBtn.onclick) {
-    for (var i = 1; i <= rowCount; i++) {  
-      var row = table.rows[i];  
-      var cells = row.getElementsByTagName('td');
-      for (var j = 1; j <= cells.length-1; j++) {
-        cells[j] = makeEditable();
-      }
-    } 
 
-
-    ok.value = 'ok';
-    cancel.value = 'cancel';
-    ok.onclick = function(index, id){
-
-    }
-    cancel.onclick = function(){
-
-    }
-
-  }
-
-
-
-}
 
 function addAllCol(persons) {
   var colSet = [];
@@ -178,18 +139,15 @@ function rendTable(persons) {
          }
          table.appendChild(tr);
          td.insertAdjacentHTML("afterBegin",'<input id="delBtn" type="button" value = "Delete" onclick="cancelBubble(event);delRow(this);">');                
-         td.insertAdjacentHTML("afterBegin",'<input id="edit_btn" type="button" value = "Edit" onclick="cancelBubble(event);addConfrmBtns();">');                
+         td.insertAdjacentHTML("afterBegin",'<input id="edit_btn" type="button" value = "Edit" onclick="cancelBubble(event);onEdit(this);">');                
      }
      return table;
 }
-
 var table =  d.getElementById('persons');
-
 function clearTb() {
     var table = document.getElementById('persons');
     table.innerHTML = "";
 }
-
 function addRow() {
     // clearTb();   
     name = d.getElementById('name').value;
@@ -199,41 +157,57 @@ function addRow() {
     persons[key] = id++;
     persons.push({"id":id,"name":name,"mobNum":mobNum,"adress":adress});
     rendTable(persons);
-    // addEventHandlers();
-}
-
-function makeEditable(){
- 
- var el = this; 
- if(el.firstChild.nodeName !="INPUT"){
-   var input = document.createElement("input");
-    input.value = el.firstChild.nodeValue;
-    input.setAttribute('autocomplete','off');
-    input.style.background = "rgb(255,244,255)";
-    el.replaceChild(input, el.firstChild);
-    el.firstChild.select();
-    el.firstChild.focus(); 
-   } 
-   // else {   
-   //  var text= document.createTextNode(el.firstChild.value);
-   //  el.replaceChild(text, el.firstChild);
-   // }
- 
 }
 
 var table = document.getElementById('persons');
-
 function delRow(obj) {
     
     var tl =  d.getElementById('persons');   
     var index = obj.parentNode.parentNode.rowIndex;
-
     persons.splice(index, 1);
     tl.deleteRow(index);
     clearTb();
     rendTable(persons);  
 }
 
+var table = document.getElementById('persons');
+function onEdit(obj) {
+    var editBtn = document.getElementById("edit_btn");
+    var getTR = obj.parentNode.parentNode;
+    
+    var getLength = getTR.childElementCount;
+    var getTds = getTR.querySelectorAll("td")
+      for (i in getTds){
+          if(i < (getLength-1)){
+            getTds[i].innerHTML = "<input type='text' value='"+getTds[i].innerHTML+"'>";
+
+            var tId = getTds[0].innerText;
+            var tName = getTds[1].innerText;
+            var tMob = getTds[2].innerText;
+            var tAdress = getTds[3].innerText;
+          }
+          else {
+            getTds[i].innerHTML = "<input id='saveBtn' type='button' value='ok' onclick='save(this);'>"+"<input id='cancelBtn' type='button' value='cancel' onclick='cancel();'>";
+          }
+       
+      }
+}
+
+function save(cRow){
+  
+  var saveBtn = document.getElementById("saveBtn");
+  var rowIndex = cRow.parentNode.parentNode.sectionRowIndex;
+    if (persons["id"] = rowIndex) {
+        persons.push({"id": tId, "name": tName, "mobNum": tMob, "adress": tAdress});
+    }
+        clearTb();
+        rendTable(persons);
+}
+
+
+function cancel(){
+
+}
 </script>
 </body>
 
