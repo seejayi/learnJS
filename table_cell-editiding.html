@@ -180,14 +180,9 @@ function onEdit(obj) {
       for (i in getTds){
           if(i < (getLength-1)){
             getTds[i].innerHTML = "<input type='text' value='"+getTds[i].innerHTML+"'>";
-
-            var tId = getTds[0].innerText;
-            var tName = getTds[1].innerText;
-            var tMob = getTds[2].innerText;
-            var tAdress = getTds[3].innerText;
           }
           else {
-            getTds[i].innerHTML = "<input id='saveBtn' type='button' value='ok' onclick='save(this);'>"+"<input id='cancelBtn' type='button' value='cancel' onclick='cancel();'>";
+            getTds[i].innerHTML = "<input id='saveBtn' type='button' value='ok' onclick='cancelBubble(event);save(this);'>"+"<input id='cancelBtn' type='button' value='cancel' onclick='cancel();'>";
           }
        
       }
@@ -196,17 +191,36 @@ function onEdit(obj) {
 function save(cRow){
   
   var saveBtn = document.getElementById("saveBtn");
+        var tData = [];
   var rowIndex = cRow.parentNode.parentNode.sectionRowIndex;
-    if (persons["id"] = rowIndex) {
-        persons.push({"id": tId, "name": tName, "mobNum": tMob, "adress": tAdress});
+  var getRow = cRow.parentNode.parentNode;
+  var rowLength = getRow.childElementCount;
+  var getInputs = getRow.querySelectorAll("input")
+  for (i in getInputs) {
+    if (i < rowLength-1) {
+          var tId = getInputs[0].value;
+          var tName = getInputs[1].value;
+          var tMob = getInputs[2].value;
+          var tAdress = getInputs[3].value;
     }
-        clearTb();
-        rendTable(persons);
+  }
+  for (var j = 0, len = persons.length; j<len;j++) {
+
+    if (persons[j].id === rowIndex) {
+      persons[j]['id'] = tId;
+      persons[j]['name'] = tName; 
+      persons[j]['mobNum'] = tMob; 
+      persons[j]['adress'] = tAdress;
+    }
+  }
+    clearTb();
+    rendTable(persons);
 }
 
 
 function cancel(){
-
+        clearTb();
+        rendTable(persons);
 }
 </script>
 </body>
