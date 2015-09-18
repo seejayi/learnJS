@@ -43,7 +43,7 @@
 
 </head>
 
-<body >
+<body onload="rendTable(persons);">
 
 <form action="" id="add_persons" method="post" onsubmit="addRow();return false;">
 <fieldset>
@@ -174,40 +174,38 @@ var table = document.getElementById('persons');
 function onEdit(obj) {
     var editBtn = document.getElementById("edit_btn");
     var getTR = obj.parentNode.parentNode;
-    
+    // var firstTd = getTds;
     var getLength = getTR.childElementCount;
-    var getTds = getTR.querySelectorAll("td")
-      for (i in getTds){
-          if(i < (getLength-1)){
-            getTds[i].innerHTML = "<input type='text' value='"+getTds[i].innerHTML+"'>";
-          }
-          else {
-            getTds[i].innerHTML = "<input id='saveBtn' type='button' value='ok' onclick='cancelBubble(event);save(this);'>"+"<input id='cancelBtn' type='button' value='cancel' onclick='cancel();'>";
-          }
+    var getTds = getTR.querySelectorAll("td");
+     
+    getTds[1].innerHTML = "<input type='text' value='"+getTds[1].innerHTML+"'>";
+    getTds[2].innerHTML = "<input type='text' value='"+getTds[2].innerHTML+"'>";
+    getTds[3].innerHTML = "<input type='text' value='"+getTds[3].innerHTML+"'>";
+          
+          
+    getTds[4].innerHTML = "<input id='saveBtn' type='button' value='ok' onclick='cancelBubble(event);save(this);'>"+"<input id='cancelBtn' type='button' value='cancel' onclick='cancel();'>";
+          
        
-      }
+      
 }
 
 function save(cRow){
   
   var saveBtn = document.getElementById("saveBtn");
-        var tData = [];
+
   var rowIndex = cRow.parentNode.parentNode.sectionRowIndex;
   var getRow = cRow.parentNode.parentNode;
   var rowLength = getRow.childElementCount;
   var getInputs = getRow.querySelectorAll("input")
-  for (i in getInputs) {
-    if (i < rowLength-1) {
-          var tId = getInputs[0].value;
-          var tName = getInputs[1].value;
-          var tMob = getInputs[2].value;
-          var tAdress = getInputs[3].value;
-    }
-  }
-  for (var j = 0, len = persons.length; j<len;j++) {
+          // var tId = getInputs[0].value;
+          var tName = getInputs[0].value;
+          var tMob = getInputs[1].value;
+          var tAdress = getInputs[2].value;
+   
+  for (var j = 0,len = persons.length; j<len; j++) {
 
     if (persons[j].id === rowIndex) {
-      persons[j]['id'] = tId;
+      // persons[j]['id'] = tId;
       persons[j]['name'] = tName; 
       persons[j]['mobNum'] = tMob; 
       persons[j]['adress'] = tAdress;
