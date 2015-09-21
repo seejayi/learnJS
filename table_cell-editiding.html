@@ -45,7 +45,7 @@
 
 <body onload="rendTable(persons);">
 
-<form action="" id="add_persons" method="post" onsubmit="addRow();return false;">
+<form action="" id="add_persons" method="post" >
 <fieldset>
 <legend>Add new record</legend>
     <ul>
@@ -63,7 +63,7 @@
         </li>
         <li>
             <label for="subm">Add new record</label>
-            <input type="submit"  name="subm"  value="Добавить" tabindex="4" />
+            <input type="button"  onclick="addRow();" name="subm"  value="Добавить" tabindex="4" />
         </li>
     </ul>
 </fieldset>
@@ -85,17 +85,17 @@ var _tr_ = document.createElement('tr'),
     _th_ = document.createElement('th'),
     _td_ = document.createElement('td');
   var persons = [{
-      id: 1,
+      id: 11,
       name: 'vasya',
       mobNum: '1234134',
       adress: 'tratata'
     }, {
-      id: 2,
+      id: 22,
       name: 'petya',
       mobNum: '1234231134',
       adress: 'tratdsdcata'
     }, {
-      id: 3,
+      id: 33,
       name: 'her',
       mobNum: '1896634',
       adress: 'ddddddd'
@@ -109,6 +109,61 @@ function cancelBubble(e) {
 }
 
 
+var table = document.getElementById('persons');
+function onEdit(obj) {
+    var editBtn = document.getElementById("edit_btn");
+    var getTR = obj.parentNode.parentNode;
+    // var firstTd = getTds;
+    var getLength = getTR.childElementCount;
+    var getTds = getTR.querySelectorAll("td");
+     
+    getTds[1].innerHTML = "<input type='text' value='"+getTds[1].innerHTML+"'>";
+    getTds[2].innerHTML = "<input type='text' value='"+getTds[2].innerHTML+"'>";
+    getTds[3].innerHTML = "<input type='text' value='"+getTds[3].innerHTML+"'>";
+          
+          
+    getTds[4].innerHTML = "<input id='saveBtn' type='button' value='ok' onclick='cancelBubble(event);save(this);'>"+"<input id='cancelBtn' type='button' value='cancel' onclick='cancel();'>";
+          
+             
+}
+
+function save(cRow){
+  
+  var saveBtn = document.getElementById("saveBtn");
+
+  var rowIndex = cRow.parentNode.parentNode.sectionRowIndex;
+  var getRow = cRow.parentNode.parentNode;
+  var rowLength = getRow.childElementCount;
+  var getInputs = getRow.querySelectorAll("input");
+          // var tId = getInputs[0].value;
+          var tName = getInputs[0].value;
+          var tMob = getInputs[1].value;
+          var tAdress = getInputs[2].value;
+   
+  for (var i = 0,len = persons.length; i<len; i++) {
+
+    if (persons[i]["id"] === rowIndex) {
+      
+      // persons[i]['id'] = tId;
+
+      persons[i]["name"] = tName; 
+      persons[i]["mobNum"] = tMob; 
+      persons[i]["adress"] = tAdress;
+    }
+  }
+    clearTb();
+    rendTable(persons);
+}
+
+
+function cancel(){
+  clearTb();
+    rendTable(persons);
+}
+function clearTb() {
+    var table = document.getElementById('persons');
+    table.innerHTML = "";
+}
 
 function addAllCol(persons) {
   var colSet = [];
@@ -143,19 +198,19 @@ function rendTable(persons) {
      }
      return table;
 }
+
 var table =  d.getElementById('persons');
-function clearTb() {
-    var table = document.getElementById('persons');
-    table.innerHTML = "";
-}
+
 function addRow() {
-    // clearTb();   
     name = d.getElementById('name').value;
     mobNum = d.getElementById('mobNum').value;
     adress = d.getElementById('adress').value;
     var key = 'id';
-    persons[key] = id++;
-    persons.push({"id":id,"name":name,"mobNum":mobNum,"adress":adress});
+    var personsLength = persons.length + 1;
+    persons[key] = personsLength;
+    persons.push({"id":personsLength,"name":name,"mobNum":mobNum,"adress":adress});
+
+    clearTb();   
     rendTable(persons);
 }
 
@@ -170,56 +225,7 @@ function delRow(obj) {
     rendTable(persons);  
 }
 
-var table = document.getElementById('persons');
-function onEdit(obj) {
-    var editBtn = document.getElementById("edit_btn");
-    var getTR = obj.parentNode.parentNode;
-    // var firstTd = getTds;
-    var getLength = getTR.childElementCount;
-    var getTds = getTR.querySelectorAll("td");
-     
-    getTds[1].innerHTML = "<input type='text' value='"+getTds[1].innerHTML+"'>";
-    getTds[2].innerHTML = "<input type='text' value='"+getTds[2].innerHTML+"'>";
-    getTds[3].innerHTML = "<input type='text' value='"+getTds[3].innerHTML+"'>";
-          
-          
-    getTds[4].innerHTML = "<input id='saveBtn' type='button' value='ok' onclick='cancelBubble(event);save(this);'>"+"<input id='cancelBtn' type='button' value='cancel' onclick='cancel();'>";
-          
-       
-      
-}
 
-function save(cRow){
-  
-  var saveBtn = document.getElementById("saveBtn");
-
-  var rowIndex = cRow.parentNode.parentNode.sectionRowIndex;
-  var getRow = cRow.parentNode.parentNode;
-  var rowLength = getRow.childElementCount;
-  var getInputs = getRow.querySelectorAll("input")
-          // var tId = getInputs[0].value;
-          var tName = getInputs[0].value;
-          var tMob = getInputs[1].value;
-          var tAdress = getInputs[2].value;
-   
-  for (var j = 0,len = persons.length; j<len; j++) {
-
-    if (persons[j].id === rowIndex) {
-      // persons[j]['id'] = tId;
-      persons[j]['name'] = tName; 
-      persons[j]['mobNum'] = tMob; 
-      persons[j]['adress'] = tAdress;
-    }
-  }
-    clearTb();
-    rendTable(persons);
-}
-
-
-function cancel(){
-        clearTb();
-        rendTable(persons);
-}
 </script>
 </body>
 
