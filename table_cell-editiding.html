@@ -63,7 +63,11 @@
         </li>
         <li>
             <label for="subm">Add new record</label>
-            <input type="button"  onclick="addRow();" name="subm"  value="Добавить" tabindex="4" />
+            <input type="button"  onclick="addRow();" name="subm"  value="Add" tabindex="4" />
+        </li>
+        <li>
+            <label for="subm">Save to localStorage</label>
+            <input type="button"  onclick="storeData();" value="Save"/>
         </li>
     </ul>
 </fieldset>
@@ -225,7 +229,14 @@ function delRow(obj) {
     rendTable(persons);  
 }
 
+//______ localStorage
 
+function storeData(){    
+  localStorage.setItem('persons', JSON.stringify(persons));
+var storedData= JSON.parse( localStorage.getItem('persons') );
+console.log(storedData);
+}
+storeData();
 </script>
 </body>
 
